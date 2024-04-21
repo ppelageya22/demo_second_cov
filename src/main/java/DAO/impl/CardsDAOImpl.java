@@ -2,17 +2,17 @@ package DAO.impl;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import DAO.cardsDAO;
-import models.books;
-import models.cards;
+import DAO.CardsDAO;
+import models.Books;
+import models.Cards;
 import util.HibernateUtil;
 
 import java.util.List;
 
 import static util.HibernateUtil.getSessionFactory;
 
-public class cardsDAOImpl extends cardsDAO {
-    public void addcards(cards cards) {
+public class CardsDAOImpl extends CardsDAO {
+    public void addcards(Cards cards) {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
         session.persist(cards);
@@ -21,7 +21,7 @@ public class cardsDAOImpl extends cardsDAO {
     }
 
     @Override
-    public void updatecards(cards cards) {
+    public void updatecards(Cards cards) {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
         session.merge(cards);
@@ -30,7 +30,7 @@ public class cardsDAOImpl extends cardsDAO {
     }
 
     @Override
-    public void deletecards(cards cards) {
+    public void deletecards(Cards cards) {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
         session.remove(cards);
@@ -39,10 +39,10 @@ public class cardsDAOImpl extends cardsDAO {
     }
 
     @Override
-    public cards getcardsById(Long id) {
-        cards result = null;
+    public Cards getcardsById(Long id) {
+        Cards result = null;
         Session session = getSessionFactory().openSession();
-        Query<cards> query = session.createQuery("FROM models.cards WHERE cards_id = :param", cards.class)
+        Query<Cards> query = session.createQuery("FROM models.Cards WHERE cards_id = :param", Cards.class)
                 .setParameter("param", id);
         if (query.getResultList().size() != 0) {
             result = query.getSingleResult();
@@ -51,10 +51,10 @@ public class cardsDAOImpl extends cardsDAO {
     }
 
     @Override
-    public List<cards> getcardsBySurname(String surname) {
-        List<cards> result = null;
+    public List<Cards> getcardsBySurname(String surname) {
+        List<Cards> result = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query<cards> query = session.createQuery("FROM models.cards WHERE surname LIKE :surname", cards.class)
+        Query<Cards> query = session.createQuery("FROM cards WHERE surname LIKE :surname", Cards.class)
                 .setParameter("surname", "%" + surname + "%");
         if (query.getResultList().size() != 0) {
             result = query.getResultList();
@@ -63,15 +63,15 @@ public class cardsDAOImpl extends cardsDAO {
     }
 
     @Override
-    public List<cards> getcardsBooksBySurname(String surname) {
-        java.util.List<cards> result = null;
+    public List<Cards> getcardsBooksBySurname(String surname) {
+        java.util.List<Cards> result = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query<cards> query = session.createQuery("Select DISTINCT bok " +
-                        "FROM models.read rec " +
+        Query<Cards> query = session.createQuery("Select DISTINCT bok " +
+                        "FROM models.Read rec " +
                         "left join rec.cards_id read " +
                         "left join rec.copy_id cop " +
                         "left join cop.book_id bok " +
-                        "Where read.surname LIKE :surname", cards.class)
+                        "Where read.surname LIKE :surname", Cards.class)
                 .setParameter("surname", "%" + surname + "%");
         if (query.getResultList().size() != 0) {
             result = query.getResultList();
@@ -80,10 +80,10 @@ public class cardsDAOImpl extends cardsDAO {
     }
 
     @Override
-    public List<cards> getAllcards() {
-        List<cards> result = null;
+    public List<Cards> getAllcards() {
+        List<Cards> result = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query<cards> query = session.createQuery("FROM models.cards", cards.class);
+        Query<Cards> query = session.createQuery("FROM models.Cards", Cards.class);
         if (query.getResultList().size() != 0) {
             result = query.getResultList();
         }
@@ -91,16 +91,16 @@ public class cardsDAOImpl extends cardsDAO {
     }
 
     @Override
-    public List<books> getTakencardsBooks (String surname) {
-        List<books> result = null;
+    public List<Books> getTakencardsBooks (String surname) {
+        List<Books> result = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query<books> query = session.createQuery("Select bok " +
-                        "FROM models.read rec " +
+        Query<Books> query = session.createQuery("Select bok " +
+                        "FROM models.Read rec " +
                         "left join rec.cards_id read " +
                         "left join rec.copy_id cop " +
                         "left join cop.book_id bok " +
                         "Where read.surname LIKE :surname " +
-                        "and cop.is_taken_now LIKE 'Yes'", books.class)
+                        "and cop.is_taken_now LIKE 'Yes'", Books.class)
                 .setParameter("surname", "%" + surname + "%");
         if (query.getResultList().size() != 0) {
             result = query.getResultList();
@@ -109,15 +109,15 @@ public class cardsDAOImpl extends cardsDAO {
     }
 
     @Override
-    public List<cards> getcardsWithBooks () {
-        List<cards> result = null;
+    public List<Cards> getcardsWithBooks () {
+        List<Cards> result = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query<cards> query = session.createQuery("SELECT DISTINCT read " +
-                "FROM models.read rec " +
+        Query<Cards> query = session.createQuery("SELECT DISTINCT read " +
+                "FROM models.Read rec " +
                 "LEFT JOIN rec.cards_id read " +
                 "LEFT JOIN rec.copy_id cop " +
                 "WHERE cop.is_taken_now LIKE 'Yes' " +
-                "AND rec.returning_date is NULL", cards.class);
+                "AND rec.returning_date is NULL", Cards.class);
         if (query.getResultList().size() != 0) {
             result = query.getResultList();
         }

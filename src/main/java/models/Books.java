@@ -14,7 +14,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
-public class books {
+public class Books {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "book_id")
@@ -46,7 +46,7 @@ public class books {
     @NonNull
     private Date date_of_receiving;
 
-    public books(String name, String author, String publishing_house, int amount,
+    public Books(String name, String author, String publishing_house, int amount,
                  String about, String genre, String date_of_receiving){
         setName(name);
         setAuthor(author);
@@ -61,7 +61,7 @@ public class books {
         }
     }
 
-    public books(String name, String author, String publishing_house, int amount,
+    public Books(String name, String author, String publishing_house, int amount,
                  String genre, String date_of_receiving){
         setName(name);
         setAuthor(author);
@@ -78,7 +78,7 @@ public class books {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        books other = (books) o;
+        Books other = (Books) o;
         return Objects.equals(book_id, other.book_id)
                 && name.equals(other.name)
                 && author.equals(other.author)

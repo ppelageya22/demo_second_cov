@@ -13,7 +13,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class cards {
+public class Cards {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reader_id")
@@ -43,8 +43,8 @@ public class cards {
     @Column(name = "phone_number")
     private String phone_number;
 
-    public cards(String name, String surname, String patronymic, String card_date, String date_of_birth,
-                  String address, String phone_number) {
+    public Cards(String name, String surname, String patronymic, String card_date, String date_of_birth,
+                 String address, String phone_number) {
         setName(name);
         setSurname(surname);
         setPatronymic(patronymic);
@@ -60,7 +60,7 @@ public class cards {
         setPhone_number(phone_number);
     }
 
-    public cards() {
+    public Cards() {
 
     }
 
@@ -68,7 +68,7 @@ public class cards {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        cards other = (cards) o;
+        Cards other = (Cards) o;
         return Objects.equals(reader_id, other.reader_id)
                 && name.equals(other.name)
                 && surname.equals(other.surname)

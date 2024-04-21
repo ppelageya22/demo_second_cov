@@ -14,7 +14,7 @@ import util.DAOFactory;
 @ToString
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
-public class read {
+public class Read {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "record_id")
@@ -22,11 +22,11 @@ public class read {
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "reader_id")
-    private cards reader_id;
+    private Cards reader_id;
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "copy_id")
-    private copy copy_id;
+    private Copy copy_id;
 
     @Column(nullable = false, name = "taking_date")
     @NonNull
@@ -35,9 +35,9 @@ public class read {
     @Column(name = "returning_date")
     private Date returning_date;
 
-    public read(String reader_surname, String book_name){
+    public Read(String reader_surname, String book_name){
         setReader_id(DAOFactory.getInstance().getReaderDAO().getcardsBySurname(reader_surname).get(0));
-        copy copy = DAOFactory.getInstance().getCopyDAO().GetBookCopyByBookName(book_name);
+        Copy copy = DAOFactory.getInstance().getCopyDAO().GetBookCopyByBookName(book_name);
         setCopy_id(copy);
         copy.setIs_taken_now("Yes");
         DAOFactory.getInstance().getCopyDAO().updateCopy(copy);
@@ -48,7 +48,7 @@ public class read {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        read other = (read) o;
+        Read other = (Read) o;
         return Objects.equals(record_id, other.record_id)
                 && Objects.equals(reader_id, other.reader_id)
                 && Objects.equals(copy_id, other.copy_id)

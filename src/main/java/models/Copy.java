@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.*;
 
 @Entity
 @Table(name = "book_copy")
@@ -12,11 +11,11 @@ import java.util.*;
 @Setter
 @ToString
 @AllArgsConstructor
-public class copy {
+public class Copy {
 
     @ManyToOne
     @JoinColumn(name = "book_id")
-    private books book_id;
+    private Books book_id;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +26,12 @@ public class copy {
     @NonNull
     private String is_taken_now;
 
-    public copy(books book){
+    public Copy(Books book){
         setBook_id(book);
         setIs_taken_now("No");
     }
 
-    public copy() {
+    public Copy() {
 
     }
 
@@ -40,7 +39,7 @@ public class copy {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        copy other = (copy) o;
+        Copy other = (Copy) o;
         return Objects.equals(book_id, other.book_id)
                 && Objects.equals(copy_id, other.copy_id);
     }

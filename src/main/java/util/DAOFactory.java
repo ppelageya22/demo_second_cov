@@ -1,19 +1,19 @@
 package util;
 
-import DAO.booksDAO;
-import DAO.cardsDAO;
-import DAO.readDAO;
-import DAO.copyDAO;
-import DAO.impl.booksDAOImpl;
-import DAO.impl.cardsDAOImpl;
-import DAO.impl.copyDAOImpl;
-import DAO.impl.readDAOImpl;
+import DAO.BooksDAO;
+import DAO.CardsDAO;
+import DAO.ReadDAO;
+import DAO.CopyDAO;
+import DAO.impl.BooksDAOImpl;
+import DAO.impl.CardsDAOImpl;
+import DAO.impl.CopyDAOImpl;
+import DAO.impl.ReadDAOImpl;
 
 public class DAOFactory {
-    private static cardsDAO readerDAO = null;
-    private static booksDAO booksDAO = null;
-    private static readDAO recordsDAO = null;
-    private static copyDAO copyDAO = null;
+    private static CardsDAO readerDAO = null;
+    private static BooksDAO booksDAO = null;
+    private static ReadDAO recordsDAO = null;
+    private static CopyDAO copyDAO = null;
     private static DAOFactory instance = null;
 
     public static synchronized DAOFactory getInstance(){
@@ -23,30 +23,30 @@ public class DAOFactory {
         return instance;
     }
 
-    public cardsDAO getReaderDAO(){
+    public CardsDAO getReaderDAO(){
         if (readerDAO == null){
-            readerDAO = new cardsDAOImpl();
+            readerDAO = new CardsDAOImpl();
         }
         return readerDAO;
     }
 
-    public booksDAO getBooksDAO(){
+    public BooksDAO getBooksDAO(){
         if (booksDAO == null){
-            booksDAO = new booksDAOImpl();
+            booksDAO = new BooksDAOImpl();
         }
         return booksDAO;
     }
 
-    public readDAO getRecordsDAO(){
+    public ReadDAO getRecordsDAO(){
         if (recordsDAO == null){
-            recordsDAO = new readDAOImpl();
+            recordsDAO = new ReadDAOImpl();
         }
         return recordsDAO;
     }
 
-    public copyDAO getCopyDAO(){
+    public CopyDAO getCopyDAO(){
         if (copyDAO == null){
-            copyDAO = new copyDAOImpl();
+            copyDAO = new CopyDAOImpl();
         }
         return copyDAO;
     }

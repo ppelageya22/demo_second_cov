@@ -1,14 +1,14 @@
 package DAO.impl;
 
-import models.copy;
+import models.Copy;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import DAO.copyDAO;
+import DAO.CopyDAO;
 
 import static util.HibernateUtil.*;
 
-public class copyDAOImpl extends copyDAO {
-    public void addCopy(copy copy) {
+public class CopyDAOImpl extends CopyDAO {
+    public void addCopy(Copy copy) {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
         session.persist(copy);
@@ -17,7 +17,7 @@ public class copyDAOImpl extends copyDAO {
     }
 
     @Override
-    public void updateCopy(copy copy) {
+    public void updateCopy(Copy copy) {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
         session.merge(copy);
@@ -26,7 +26,7 @@ public class copyDAOImpl extends copyDAO {
     }
 
     @Override
-    public void deleteCopy(copy copy) {
+    public void deleteCopy(Copy copy) {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
         session.remove(copy);
@@ -35,14 +35,14 @@ public class copyDAOImpl extends copyDAO {
     }
 
     @Override
-    public copy GetBookCopyByBookName(String name){
-        copy result = null;
+    public Copy GetBookCopyByBookName(String name){
+        Copy result = null;
         Session session = getSessionFactory().openSession();
-        Query<copy> query = session.createQuery("Select cp " +
-                        "FROM models.copy cp " +
+        Query<Copy> query = session.createQuery("Select cp " +
+                        "FROM models.Copy cp " +
                         "LEFT JOIN cp.book_id bok " +
                         "WHERE cp.is_taken_now LIKE 'No' " +
-                        "and bok.name LIKE :param", copy.class)
+                        "and bok.name LIKE :param", Copy.class)
                 .setParameter("param", name);
         if (query.getResultList().size() != 0) {
             result = query.getResultList().get(0);
@@ -51,11 +51,11 @@ public class copyDAOImpl extends copyDAO {
     }
 
     @Override
-    public copy getCopyById(Long id) {
-        copy copy = null;
+    public Copy getCopyById(Long id) {
+        Copy copy = null;
         Session session = getSessionFactory().openSession();
-        Query<copy> query = session.createQuery("FROM models.copy WHERE copy_id = :param",
-                copy.class).setParameter("param", id);
+        Query<Copy> query = session.createQuery("FROM models.Copy WHERE copy_id = :param",
+                Copy.class).setParameter("param", id);
         if (query.getResultList().size() != 0) {
             copy = query.getSingleResult();
         }
